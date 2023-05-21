@@ -4,8 +4,80 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <title>Live wallpaper Digital Clock</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: 'poppins', sans-serif;
+        }
+        
+        html, body {
+            display: grid;
+            height: 100%;
+            width: 100%;
+            place-items: center;
+            background: #000;
+        }
+        
+        .container {
+            height: 100px;
+            width: 360px;
+            cursor: default;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0, rgb(56, 9, 244));
+            animation: animate 50s linear infinite;
+        }
+        
+        .container .display,
+        .container span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .container .display {
+            position: absolute;
+            top: 50%;
+            /* opacity: 0; */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #1b1b1b;
+            border-radius: 6px;
+            height: 85px;
+            width: 345px;
+            text-align: center;
+            z-index: 999;
+        }
+        
+        .container .display #time {
+            line-height: 85px;
+            color: #fff;
+            font-size: 50px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        @keyframes animate {
+            100% {
+                filter: hue-rotate(360deg);
+            }
+        }
+        
+        .container span {
+            height: 100%;
+            width: 100%;
+            background: inherit;
+            border-radius: 10px;
+        }
+        
+      
+    </style>
 </head>
 <body>
     <div class="container">
@@ -15,6 +87,33 @@
         <span></span>
         <span></span>
     </div>
-    <script src="/main.js"></script>>
+    <script>
+        if (typeof document !== 'undefined') {
+            let clock = document.querySelector('#time')
+        
+        let now = new Date();
+        
+        function hours() {
+        h = now.getHours()
+            if (h < 10) {
+               return "0" + h;
+            } else {
+                return h
+            };
+        };
+        
+        function minutes() {
+            m = now.getMinutes()
+                if (m < 10) {
+                   return "0" + m;
+                } else {
+                    return m
+                };
+            };
+        
+        clock.innerHTML = ( hours() + ":" + minutes());
+        }
+    </script>
+    <script type="module" src="/index.js"></script>>
 </body>
 </html>

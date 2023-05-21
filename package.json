@@ -1,5 +1,9 @@
 {
+  "name": "live-wallpaper-clock",
+  "type": "module",
   "dependencies": {
-    "node-html-to-image": "^3.3.0"
+    "node-cron": "^3.0.2",
+    "node-html-to-image": "^3.3.0",
+    "wallpaper": "^6.1.1"
   }
 }
