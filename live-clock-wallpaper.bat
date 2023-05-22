@@ -1,3 +1,6 @@
-@ECHO OFF
+@ECHO
 
-E:\my-batch-files\nircmd-x64\nircmd.exe exec hide E:\Coding\live-wallpaper-clock\node index.js
+cd..
+cd Coding\live-wallpaper-clock\
+node index.js
+
