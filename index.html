@@ -21,8 +21,8 @@
         }
         
         .container {
-            height: 100px;
-            width: 360px;
+            height: 150px;
+            width: 540px;
             cursor: default;
             border-radius: 10px;
             background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0, rgb(56, 9, 244));
@@ -45,16 +45,16 @@
             transform: translate(-50%, -50%);
             background: #1b1b1b;
             border-radius: 6px;
-            height: 85px;
-            width: 345px;
+            height: 128px;
+            width: 518px;
             text-align: center;
             z-index: 999;
         }
         
         .container .display #time {
-            line-height: 85px;
+            line-height: 128px;
             color: #fff;
-            font-size: 50px;
+            font-size: 75px;
             font-weight: 600;
             letter-spacing: 1px;
             background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0);
@@ -90,28 +90,50 @@
     <script>
         if (typeof document !== 'undefined') {
             let clock = document.querySelector('#time')
+            let container = document.querySelector('.container')
         
-        let now = new Date();
-        
-        function hours() {
-        h = now.getHours()
-            if (h < 10) {
-               return "0" + h;
-            } else {
-                return h
-            };
-        };
-        
-        function minutes() {
-            m = now.getMinutes()
-                if (m < 10) {
-                   return "0" + m;
-                } else {
-                    return m
+            function updateClock() {
+                let now = new Date();
+                
+                // Update time
+                function hours() {
+                    h = now.getHours()
+                    if (h < 10) {
+                       return "0" + h;
+                    } else {
+                        return h
+                    };
                 };
-            };
-        
-        clock.innerHTML = ( hours() + ":" + minutes());
+                
+                function minutes() {
+                    m = now.getMinutes()
+                    if (m < 10) {
+                       return "0" + m;
+                    } else {
+                        return m
+                    };
+                };
+                
+                // For wallpaper capture, we'll set a data attribute instead of directly setting the filter
+                // This won't affect the CSS animation but will be used when capturing the image
+                let minute = now.getMinutes();
+                let second = now.getSeconds();
+                let hueRotate = (minute * 6 + second * 0.1) % 360;
+                container.dataset.hueRotate = hueRotate;
+                
+                // Do not set filter directly as it overrides the CSS animation
+                // container.style.filter = `hue-rotate(${hueRotate}deg)`;
+                
+                clock.innerHTML = (hours() + ":" + minutes());
+            }
+            
+            // Run immediately
+            updateClock();
+            
+            // Update every second if in browser (not needed for wallpaper image capture)
+            if (typeof window !== 'undefined') {
+                setInterval(updateClock, 1000);
+            }
         }
     </script>
     <script type="module" src="/index.js"></script>>
